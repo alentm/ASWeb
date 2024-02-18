@@ -17,5 +17,5 @@ jobs:
           server: files.000webhost.com
           username: alfaspot
           password: AlfaSpot@123
-          local-dir: .
+          local-dir: /
           remote-dir: /public_html
