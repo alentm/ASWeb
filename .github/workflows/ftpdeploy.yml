@@ -1,0 +1,21 @@
+name: Deploy to FTP
+
+on:
+  workflow_dispatch: # Triggered manually
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: files.000webhost.com
+          username: alfaspot
+          password: AlfaSpot@123
+          local-dir: .
+          remote-dir: /public_html
