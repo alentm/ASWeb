@@ -21,4 +21,4 @@ jobs:
           username: alfaspot
           password: AlfaSpot@123
           local-dir: ./
-          remote-dir: public_html/
+          server-dir: public_html/
