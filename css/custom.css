@@ -16,3 +16,7 @@
 .float-button{
 	margin-top:16px;
 }
+
+.menu-active{
+	color: blue !important;
+}
