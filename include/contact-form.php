@@ -13,7 +13,7 @@ require 'php-mailer/src/PHPMailer.php';
 
 
 // Enter your email address. If you need multiple email recipes simply add a comma: email@domain.com, email2@domain.com
-$to = "alen.tm00@live.com";
+$to = "alfaspot.llc@yahoo.com";
 
 // Add your reCaptcha Secret key if you wish to activate google reCaptcha security
 $recaptcha_secret_key = ''; 
@@ -26,7 +26,7 @@ const RESPONSE_MSG = [
     'form' => [
         "recipient_email"        => "Message not sent! The recipient email address is missing in the config file.",
         "name"                   => "Contact Form",
-        "subject"                => "New Message From Contact Form"
+        "subject"                => "New Message From Website Contact Form"
     ],
     'google' => [
         "recapthca_invalid"     => "reCaptcha is not Valid! Please try again.",
@@ -43,6 +43,8 @@ $form_prefix = isset($_POST["form-prefix"]) ? $_POST["form-prefix"] : "widget-co
 $form_title	= isset($_POST["form-name"]) ? $_POST["form-name"] : RESPONSE_MSG['form']['name'];
 $subject = isset($_POST[$form_prefix."subject"]) ? $_POST[$form_prefix."subject"] : RESPONSE_MSG['form']['subject'];
 $email = isset($_POST[$form_prefix."email"]) ? $_POST[$form_prefix."email"] : null;
+$phone = isset($_POST[$form_prefix."phone"]) ? $_POST[$form_prefix."phone"] : null;
+$message = isset($_POST[$form_prefix."message"]) ? $_POST[$form_prefix."message"] : null;
 $name = isset($_POST[$form_prefix."name"]) ? $_POST[$form_prefix."name"] : null;
 
 
@@ -120,8 +122,22 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         unset($_POST['g-recaptcha-response']);
         //Format eMail Template 
-        $mail_template .= file_get_contents("emailtemplate.html");;
+        
+        //$mail_template = file_get_contents("emailtemplate.html");
+        // Construct the email message
+        $mail_template = "Enquiry Details From Website\n";
+        $mail_template .= str_repeat("-", strlen("Enquiry Details From Website")) . "\n"; // Underline with dashes
+
+        $mail_template .= "Name: $name\n";
+        $mail_template .= "Phone: $phone\n";
+        $mail_template .= "Email: $email\n";
+        $mail_template .= "Message: $message\n\n";
+        $mail_template .= "Thank you.";
+        
         $mail->Body = $mail_template; 
+        // Add MIME headers
+        //$mail->addCustomHeader('MIME-Version: 1.0');
+        //$mail->addCustomHeader('Content-Type: text/html; charset=UTF-8');
 
         // Check if any file is attached
         $attachments = [];
