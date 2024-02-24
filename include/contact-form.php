@@ -120,23 +120,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         unset($_POST['g-recaptcha-response']);
         //Format eMail Template 
-        $mail_template  = '<table width="100%" cellspacing="40" cellpadding="0" bgcolor="#F5F5F5"><tbody><tr><td>';
-        $mail_template .= '<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#F5F5F5" style="border-spacing:0;font-family:sans-serif;color:#475159;margin:0 auto;width:100%;max-width:70%"><tbody>';
-        $mail_template .= '<tr><td style="padding-top:20px;padding-left:0px;padding-right:0px;width:100%;text-align:right; font-size:12px;line-height:22px">This email is sent from&nbsp;'.$_SERVER['HTTP_HOST'].'</td></tr>';
-        $mail_template .= '</tbody></table>';
-        $mail_template .= '<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#F5F5F5" style="padding: 50px; border-spacing:0;font-family:sans-serif;color:#475159;margin:0 auto;width:100%;max-width:70%; background-color:#ffffff;"><tbody>';
-        $mail_template .= '<tr><td style="font-weight:bold;font-family:Arial,sans-serif;font-size:36px;line-height:42px">'.$form_title.'</td></tr>';
-        $mail_template .= '<tr><td style="padding-top:25px;padding-bottom:40px; font-size:16px;">';
-        foreach ($_POST as $field => $value) {
-                $split_field_name = str_replace($form_prefix, '', $field);
-                $ucwords_field_name = ucfirst(str_replace('-', ' ', $split_field_name));        
-                $mail_template .= '<p style="display:block;margin-bottom:10px;"><strong>'.$ucwords_field_name.': </strong>'.$value.'</p>';
-        }  
-        $mail_template .= '</td></tr>';
-        $mail_template .= '<tr><td style="padding-top:16px;font-size:12px;line-height:24px;color:#767676; border-top:1px solid #f5f7f8;">Date: '.date("F j, Y, g:i a").'</td></tr>';
-        $mail_template .= '<tr><td style="font-size:12px;line-height:24px;color:#767676">From: '.$email.'</td></tr>';
-        $mail_template .= '</tbody></table>';
-        $mail_template .= '</td></tr></tbody></table>';
+        $mail_template .= file_get_contents("emailtemplate.html");;
         $mail->Body = $mail_template; 
 
         // Check if any file is attached
