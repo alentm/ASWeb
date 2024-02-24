@@ -17,8 +17,8 @@ jobs:
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: files.000webhost.com
-          username: alfaspot
-          password: AlfaSpot@123
-          local-dir: ./
-          server-dir: public_html/
+          server: ${{ secrets.FTP_HOSTNAME }}
+          username: ${{ secrets.FTP_UNAME }}
+          password: ${{ secrets.FTP_PWD }}
+          local-dir: ${{ secrets.FTP_LOCALDIR }}
+          server-dir: ${{ secrets.FTP_SERVERDIR }}
